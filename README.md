@@ -23,6 +23,6 @@ Open http://localhost:3000, click **Call Kenny Valentine**, allow the microphone
 - `src/lib/realtime/useKennyVoice.ts` opens one WebRTC connection to OpenAI per pitch. Hold SPACE (or the talk button) to talk; releasing it hands the turn to Kenny. It plays his voice, measures its level for the lip-sync and builds the transcript.
 - `src/game/engine/` runs the night: dealing, the register, the reducer and scoring. `npm test` runs its unit tests.
 - `/api/plannerpal` and `/api/frontpage` use Claude (`ANTHROPIC_API_KEY`). Without a key they fall back to fixed text, so the game still plays.
-- `src/components/scene/` holds plain placeholder components built to `src/game/ui-props.ts`, ready for the real art.
+- `src/components/scene/` draws the game on a 16:9 stage from the art in `public/assets/` (listed in `src/game/assets.ts`). Kenny's lip-sync uses the 3x4 sprite sheet: mouth columns, expression rows.
 - `src/lib/persona.ts` builds Kenny's prompt for one pitch from its brief in `src/game/content/pitches.ts`.
 - The truth of each pitch, the register and the scoring live in `src/game/`, never in the AI.

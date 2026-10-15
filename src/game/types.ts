@@ -66,6 +66,8 @@ export interface PitchBrief {
   pressureLine: string | null;
   /** Brochure Kenny can slide across the desk, if any. */
   brochure: BrochureId | null;
+  /** What's printed on the brochure, as label and value rows. The firm's details are added from `firm`. */
+  brochureFacts?: [label: string, value: string][];
   /** Change to the pot, in pounds, if the player SIGNs. Positive for legit, negative for scams. */
   signDelta: number;
 }
@@ -114,6 +116,9 @@ export interface PitchResult {
   /** True when the decision was right: SIGN a legit pitch, or WALK or REPORT a scam. */
   correct: boolean;
 }
+
+/** yacht: a perfect night. comfortable: you kept your pot. bedsit: you lost money. */
+export type Ending = "yacht" | "comfortable" | "bedsit";
 
 // ---------------------------------------------------------------------------
 // Night state (owned by the engine, read by the UI)
@@ -212,7 +217,7 @@ export interface FrontPageRequest {
   results: PitchResult[];
 }
 export interface FrontPageResponse {
-  ending: "yacht" | "bedsit";
+  ending: Ending;
   headline: string;
   story: [string, string, string];
 }

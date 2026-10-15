@@ -5,13 +5,13 @@ export function PitchTimer({ secondsLeft, totalSeconds }: PitchTimerProps) {
   const s = String(secondsLeft % 60).padStart(2, "0");
   const low = secondsLeft <= 20;
   return (
-    <div className="w-24 text-right">
-      <p className={`text-2xl font-bold tabular-nums ${low ? "text-red-500" : ""}`}>
-        {m}:{s}
-      </p>
-      <div className="mt-1 h-1 rounded bg-current/10">
-        <div className="h-1 rounded bg-amber-400" style={{ width: `${(secondsLeft / totalSeconds) * 100}%` }} />
+    <div className="flex items-center gap-[0.6cqw]" aria-label={`${m} minutes ${s} seconds left`}>
+      <div className="h-[0.35cqw] w-[6cqw] rounded-full bg-paper/20">
+        <div className={`h-full rounded-full ${low ? "bg-magenta" : "bg-orange"}`} style={{ width: `${(secondsLeft / totalSeconds) * 100}%` }} />
       </div>
+      <span className={`font-display text-[1.3cqw] font-bold tabular-nums ${low ? "text-magenta neon-text" : "text-paper"}`}>
+        {m}:{s}
+      </span>
     </div>
   );
 }

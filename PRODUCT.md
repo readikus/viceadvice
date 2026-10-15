@@ -26,7 +26,9 @@ The build plan and who owns what is in [`docs/PLAN.md`](docs/PLAN.md).
 | 10 | One night is five pitches dealt from eight, at least two of each kind. Each pitch is a fresh voice session of about two minutes, and Kenny opens it with his hook. | 2026-10-15 | Tom |
 | 11 | Push-to-talk: hold SPACE or the talk button to speak, release to hand over to Kenny. Talking over him cuts him off. | 2026-10-15 | Tom |
 | 12 | The player can check Kenny's firm number in a fictional FCA register, and has two PlannerPal lifelines a night. | 2026-10-15 | Tom |
-| 13 | The PlannerPal lifeline and the end-of-night front page are written by Claude (Anthropic API). The ending, yacht or bedsit, is decided in code: finish with at least the pot you started with and it's the yacht. | 2026-10-15 | Tom |
+| 13 | The PlannerPal lifeline and the end-of-night front page are written by Claude (Anthropic API). The ending is decided in code (see 14). | 2026-10-15 | Tom |
+| 14 | Three endings, decided in code: **yacht** for a perfect night (every call right), **comfortable** if you kept at least your starting pot, **bedsit** if you lost money. | 2026-10-15 | Tom |
+| 15 | The art is the approved Miami 1986 set in `public/assets/` (WebP exports of the masters). Text, controls, the wordmark, brochure contents and the newspaper are drawn in code. | 2026-10-15 | Tom |
 
 ## Kenny Valentine: the character
 
@@ -61,6 +63,6 @@ These stay in place whatever the tone:
 ## Open questions
 
 - Is "Kenny Valentine" OK to use? It's also the name of a Fast Show character.
-- Sign-off on the three scoring values the spec didn't set (see `src/game/content/scoring.ts`), and on the yacht/bedsit threshold.
+- Sign-off on the three scoring values the spec didn't set (see `src/game/content/scoring.ts`).
 - Does Kenny paint the player's dream retirement (`/api/dream`) as part of a pitch?
 - Which browsers and phones have we actually tested a full call on?

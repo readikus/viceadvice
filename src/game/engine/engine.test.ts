@@ -133,9 +133,12 @@ describe("nightReducer", () => {
 });
 
 describe("endings and debrief", () => {
-  it("decides the ending from the pot", () => {
-    expect(decideEnding(180_000, 180_000)).toBe("yacht");
-    expect(decideEnding(179_999, 180_000)).toBe("bedsit");
+  it("decides the ending from the pot and the calls", () => {
+    const right = run([{ type: "STAMP", decision: "SIGN" }], nightWith([legit])).results;
+    const wrong = run([{ type: "STAMP", decision: "WALK" }], nightWith([legit])).results;
+    expect(decideEnding(190_000, 180_000, right)).toBe("yacht");
+    expect(decideEnding(180_500, 180_000, wrong)).toBe("comfortable");
+    expect(decideEnding(179_999, 180_000, right)).toBe("bedsit");
   });
 
   it("marks red flags caught when a scam isn't signed, missed when it is", () => {

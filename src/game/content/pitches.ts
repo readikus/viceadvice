@@ -37,6 +37,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "not_listed",
     pressureLine: "My review slots fill up fast, my friend. I can only hold yours until the end of the night.",
     brochure: "pension-transfer",
+    brochureFacts: [["Pots to transfer", "All 3"], ["Moving to", "Sunrise Overseas Growth Plan"], ["Review fee", "FREE"], ["Ongoing fees", "To be confirmed"]],
     signDelta: -120000,
   },
   {
@@ -61,6 +62,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "none_given",
     pressureLine: "The last units go tonight. The boat leaves at midnight, and so does this deal.",
     brochure: "fund",
+    brochureFacts: [["Return", "12% a year, GUARANTEED"], ["Minimum stake", "£50,000"], ["Location", "Seven Mile Beach, Grand Cayman"], ["Regulation", "Offshore"]],
     signDelta: -100000,
   },
   {
@@ -86,6 +88,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "not_listed",
     pressureLine: "The loophole closes when the tax year turns, amigo. After tonight I can't promise anything.",
     brochure: "pension-transfer",
+    brochureFacts: [["Cash to you", "Up to 100% of your pots"], ["Tax", "None*"], ["Paid as", "A loan"], ["Arrangement fee", "20%"]],
     signDelta: -110000,
   },
   {
@@ -111,6 +114,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "clone",
     pressureLine: "The membership list closes at midnight. After that, the velvet rope goes up.",
     brochure: "vip-club",
+    brochureFacts: [["Membership", "By invitation only"], ["Places left", "2"], ["Offer ends", "Midnight tonight"]],
     signDelta: -90000,
   },
 
@@ -138,6 +142,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "match",
     pressureLine: null,
     brochure: "statement",
+    brochureFacts: [["Current pots", "3"], ["Total value", "£180,000"], ["Exit fees", "Checked: none"], ["Guarantees lost", "Checked: none"], ["New yearly charge", "0.45%"]],
     signDelta: 9000,
   },
   {
@@ -211,6 +216,7 @@ export const PITCHES: PitchBrief[] = [
     registerResult: "match",
     pressureLine: null,
     brochure: "statement",
+    brochureFacts: [["Tax-free cash", "Up to 25%"], ["The rest", "Taxed as income"], ["Free guidance", "Pension Wise, age 50+"]],
     signDelta: 11000,
   },
 ];
