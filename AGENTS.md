@@ -1,3 +1,9 @@
+# AGENTS.md
+
+**Read [`PRODUCT.md`](PRODUCT.md) first.** It is the single source of truth for what Vice Advice is: the character, tone, guardrails and decisions. If your change alters any of that, update PRODUCT.md in the same commit.
+
+This repo is shared (Ian and Tom both push to `main`). Run `git fetch` before committing, integrate incoming commits first, and never force-push.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
