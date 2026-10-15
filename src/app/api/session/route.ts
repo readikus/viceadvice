@@ -1,7 +1,17 @@
-import { ADVISOR_INSTRUCTIONS } from "@/lib/persona";
+import { getPitch } from "@/game/content/pitches";
+import type { SessionRequest } from "@/game/types";
+import { buildKennyInstructions } from "@/lib/persona";
 
-// Mints a short-lived Realtime client secret so the browser never sees OPENAI_API_KEY.
-export async function POST() {
+// Mints a short-lived Realtime client secret for one pitch, so the browser never sees
+// OPENAI_API_KEY. The page sends only a pitch id; Kenny's brief, including whether the
+// pitch is a scam, is looked up and built into his instructions here on the server.
+export async function POST(request: Request) {
+  const body = (await request.json().catch(() => ({}))) as Partial<SessionRequest>;
+  const pitch = body.pitchId ? getPitch(body.pitchId) : undefined;
+  if (!pitch) {
+    return Response.json({ error: "Unknown or missing pitchId." }, { status: 400 });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return Response.json(
@@ -20,7 +30,7 @@ export async function POST() {
       session: {
         type: "realtime",
         model: process.env.OPENAI_REALTIME_MODEL ?? "gpt-realtime",
-        instructions: ADVISOR_INSTRUCTIONS,
+        instructions: buildKennyInstructions(pitch),
         audio: {
           input: {
             transcription: { model: "gpt-4o-mini-transcribe" },

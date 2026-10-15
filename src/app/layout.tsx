@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Vice Advice",
-  description: "A voice game where the financial advice is terrible.",
+  description: "Talk to Kenny Valentine. Judge the advice, not the suit.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <header className="border-b border-current/10">
           <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4">
             <h1 className="text-lg font-bold tracking-tight">Vice Advice</h1>
-            <span className="text-xs opacity-60">Not financial advice. Obviously.</span>
+            <span className="text-xs opacity-60">Judge the advice, not the suit.</span>
           </div>
         </header>
         <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-6">

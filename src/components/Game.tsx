@@ -25,7 +25,7 @@ export function Game() {
           }`}
           aria-hidden
         >
-          🤑
+          🕴️
         </div>
         <p className="text-sm opacity-70">
           {connecting && `Calling ${ADVISOR_NAME}…`}
@@ -36,7 +36,7 @@ export function Game() {
         <div className="flex gap-3">
           {!live ? (
             <button
-              onClick={start}
+              onClick={() => void start()}
               disabled={connecting}
               className="rounded-full bg-amber-400 px-6 py-3 font-semibold text-black hover:bg-amber-300 disabled:opacity-50"
             >

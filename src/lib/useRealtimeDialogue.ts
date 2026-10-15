@@ -82,12 +82,17 @@ export function useRealtimeDialogue() {
     setStatus("idle");
   }, []);
 
-  const start = useCallback(async () => {
+  // Temporary default until the engine deals pitches; the realtime stream replaces this hook.
+  const start = useCallback(async (pitchId: string = "cayman-property-fund") => {
     setError(null);
     setLines([]);
     setStatus("connecting");
     try {
-      const tokenRes = await fetch("/api/session", { method: "POST" });
+      const tokenRes = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pitchId }),
+      });
       const token = await tokenRes.json();
       if (!tokenRes.ok) throw new Error(token.error ?? "Could not start session");
 
