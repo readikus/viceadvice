@@ -1,4 +1,4 @@
-export const ADVISOR_NAME = "Vince";
+export const ADVISOR_NAME = "Kenny Valentine";
 
 export const SHOW_DREAM_TOOL = "show_retirement_dream";
 
@@ -41,7 +41,7 @@ export const SHOW_DREAM_TOOL_DEFINITION = {
       },
       caption: {
         type: "string",
-        description: "A short, over-the-top caption Vince would put on it, under 8 words.",
+        description: "A short, over-the-top caption Kenny would put on it, under 8 words.",
       },
     },
     required: ["scene", "caption"],

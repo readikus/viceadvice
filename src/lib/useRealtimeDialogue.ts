@@ -139,7 +139,7 @@ export function useRealtimeDialogue() {
       const micBlocked = err instanceof DOMException && err.name === "NotAllowedError";
       setError(
         micBlocked
-          ? "Vince needs your microphone. Allow mic access in your browser's address bar and try again."
+          ? "Kenny needs your microphone. Allow mic access in your browser's address bar and try again."
           : err instanceof Error
             ? err.message
             : String(err),
