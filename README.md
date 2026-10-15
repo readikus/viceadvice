@@ -11,7 +11,7 @@ Built with Next.js and the OpenAI Realtime API (speech-to-speech over WebRTC).
 ```bash
 npm install
 nvm use            # Node 22; Next 16 needs Node 20.9+
-cp .env.example .env.local   # then add your OPENAI_API_KEY
+cp .env.example .env.local   # then add OPENAI_API_KEY and ANTHROPIC_API_KEY
 npm run dev
 ```
 
@@ -20,6 +20,9 @@ Open http://localhost:3000, click **Call Kenny Valentine**, allow the microphone
 ## How it works
 
 - `src/app/api/session/route.ts` uses your server-side `OPENAI_API_KEY` to mint a short-lived Realtime client secret. The browser never sees the real key.
-- `src/lib/useRealtimeDialogue.ts` opens a WebRTC connection straight to OpenAI. It sends your mic audio, plays Kenny's voice and builds the transcript from data-channel events.
+- `src/lib/realtime/useKennyVoice.ts` opens one WebRTC connection to OpenAI per pitch. Hold SPACE (or the talk button) to talk; releasing it hands the turn to Kenny. It plays his voice, measures its level for the lip-sync and builds the transcript.
+- `src/game/engine/` runs the night: dealing, the register, the reducer and scoring. `npm test` runs its unit tests.
+- `/api/plannerpal` and `/api/frontpage` use Claude (`ANTHROPIC_API_KEY`). Without a key they fall back to fixed text, so the game still plays.
+- `src/components/scene/` holds plain placeholder components built to `src/game/ui-props.ts`, ready for the real art.
 - `src/lib/persona.ts` builds Kenny's prompt for one pitch from its brief in `src/game/content/pitches.ts`.
 - The truth of each pitch, the register and the scoring live in `src/game/`, never in the AI.
