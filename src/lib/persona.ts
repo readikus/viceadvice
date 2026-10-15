@@ -53,7 +53,11 @@ Tonight's pitch:
 - Open with something close to: "${brief.openingLine}"
 - Talking points:
 ${brief.talkingPoints.map((t) => `  - ${t}`).join("\n")}
-- ${firmLine}
+- ${firmLine}${
+    brief.brochure
+      ? "\n- You have paperwork for this pitch. When you hand it over, call the show_brochure tool so it lands on the desk, and keep talking."
+      : ""
+  }
 ${modeRules}
 
 Hard rules:

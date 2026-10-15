@@ -1,6 +1,7 @@
 import { getPitch } from "@/game/content/pitches";
 import type { SessionRequest } from "@/game/types";
 import { buildKennyInstructions } from "@/lib/persona";
+import { showBrochureTool } from "@/lib/realtime/tools";
 
 // Mints a short-lived Realtime client secret for one pitch, so the browser never sees
 // OPENAI_API_KEY. The page sends only a pitch id; Kenny's brief, including whether the
@@ -34,10 +35,13 @@ export async function POST(request: Request) {
         audio: {
           input: {
             transcription: { model: "gpt-4o-mini-transcribe" },
-            turn_detection: { type: "server_vad" },
+            // Push-to-talk: the page commits each turn when the talk button is released.
+            turn_detection: null,
           },
           output: { voice: process.env.OPENAI_REALTIME_VOICE ?? "cedar" },
         },
+        tools: pitch.brochure ? [showBrochureTool(pitch.brochure)] : [],
+        tool_choice: "auto",
       },
     }),
   });
