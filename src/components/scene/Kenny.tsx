@@ -20,14 +20,16 @@ export function Kenny({ getLevel, mood, speaking }: KennyProps) {
 
   useEffect(() => {
     let frame = 0;
-    const tick = () => {
-      const level = getLevel();
+    const tick = (t: number) => {
+      let level = getLevel();
+      // If the browser won't let us measure his voice, fake a speech-like rhythm while he talks.
+      if (speaking && level < 0.02) level = Math.max(0, Math.sin(t / 90) * 0.3 + Math.sin(t / 37) * 0.2 + 0.1);
       setMouth(level > OPEN_AT ? "open" : level > HALF_AT ? "half" : "closed");
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [getLevel]);
+  }, [getLevel, speaking]);
 
   // Blink every few seconds.
   useEffect(() => {
