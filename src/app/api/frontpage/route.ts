@@ -13,32 +13,40 @@ const Page = z.object({
 const SYSTEM = `You write the front page of a 1986 Miami tabloid for the end of an educational game about spotting pension scams. The player spent the night across the desk from Kenny Valentine, a charming financial adviser whose pitches were sometimes scams and sometimes good advice.
 
 Write a punchy headline and a three-sentence story about how the player's night went, in the voice of a cheeky 80s tabloid.
-- The ending is already decided and given to you. Match it: "yacht" means they protected their pension and did well; "bedsit" means they lost money.
+- The ending is already decided and given to you. Match it: "yacht" means a perfect night, every call right; "comfortable" means they kept their pension safe but missed a trick or two; "bedsit" means they lost money.
 - Mention one or two specific pitches from the results by name.
 - Keep it fun and kind to the player. No real people, firms or products.`;
 
 const fmt = (n: number) => `£${Math.round(n).toLocaleString("en-GB")}`;
 
 function fallback(ending: Ending, finalPot: number, startingPot: number): FrontPageResponse {
-  return ending === "yacht"
-    ? {
-        ending,
-        headline: "LOCAL HERO SEES THROUGH THE SUIT",
-        story: [
-          `Kenny Valentine turned on the charm all night, but our reader wasn't buying the bad deals.`,
-          `They walked out with ${fmt(finalPot)}, up from ${fmt(startingPot)}.`,
-          `Kenny was last seen sulking on his speedboat.`,
-        ],
-      }
-    : {
-        ending,
-        headline: "SMOOTH TALKER SINKS PENSION",
-        story: [
-          `One handshake too many with Kenny Valentine, and the dream retirement is on hold.`,
-          `A pension pot of ${fmt(startingPot)} is down to ${fmt(finalPot)}.`,
-          `Experts say: check the register, take your time, and never sign on the night.`,
-        ],
-      };
+  const pages: Record<Ending, Omit<FrontPageResponse, "ending">> = {
+    yacht: {
+      headline: "LOCAL HERO SEES THROUGH THE SUIT",
+      story: [
+        `Kenny Valentine turned on the charm all night, and our reader called every pitch right.`,
+        `They walked out with ${fmt(finalPot)}, up from ${fmt(startingPot)}.`,
+        `Kenny was last seen sulking on his speedboat.`,
+      ],
+    },
+    comfortable: {
+      headline: "PENSION SAFE AS KENNY STRIKES OUT",
+      story: [
+        `Kenny Valentine pulled every trick, but the nest egg made it home in one piece.`,
+        `A pot of ${fmt(startingPot)} finished the night at ${fmt(finalPot)}.`,
+        `Not quite yacht money, but the porch swing awaits.`,
+      ],
+    },
+    bedsit: {
+      headline: "SMOOTH TALKER SINKS PENSION",
+      story: [
+        `One handshake too many with Kenny Valentine, and the dream retirement is on hold.`,
+        `A pension pot of ${fmt(startingPot)} is down to ${fmt(finalPot)}.`,
+        `Experts say: check the register, take your time, and never sign on the night.`,
+      ],
+    },
+  };
+  return { ending, ...pages[ending] };
 }
 
 export async function POST(request: Request) {
@@ -49,7 +57,7 @@ export async function POST(request: Request) {
   }
 
   // Decided in code, never by the model.
-  const ending = decideEnding(finalPot, startingPot);
+  const ending = decideEnding(finalPot, startingPot, body.results);
   const claude = getClaude();
   if (!claude) return Response.json(fallback(ending, finalPot, startingPot));
 

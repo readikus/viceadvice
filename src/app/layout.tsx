@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Oswald, Yellowtail } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,9 +7,18 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Chunky condensed sans for labels, buttons and headlines.
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
+  weight: ["500", "700"],
+});
+
+// Brush script for the VICE ADVICE wordmark.
+const yellowtail = Yellowtail({
+  variable: "--font-yellowtail",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -21,18 +30,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${oswald.variable} ${yellowtail.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <header className="border-b border-current/10">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-            <h1 className="text-lg font-bold tracking-tight">Vice Advice</h1>
-            <span className="text-xs opacity-60">Judge the advice, not the suit.</span>
-          </div>
-        </header>
-        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-6">
-          {children}
-        </main>
+      <body className="flex min-h-full flex-col">
+        <main className="flex w-full flex-1 flex-col">{children}</main>
       </body>
     </html>
   );

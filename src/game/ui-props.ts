@@ -53,6 +53,8 @@ export interface RegisterBookProps {
 
 export interface BrochureProps {
   brochure: BrochureId | null;
+  /** The pitch it belongs to: its firm details and brochureFacts are printed on it. */
+  pitch: PitchBrief | null;
   onDismiss(): void;
 }
 

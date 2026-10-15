@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+/* Palette from src/game/assets.ts. The game is always played at night. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #14081f;
+  --foreground: #f6e9d7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-magenta: #ff2e88;
+  --color-teal: #19d3c5;
+  --color-orange: #ff8a3d;
+  --color-purple: #2a1240;
+  --color-paper: #f6e9d7;
+  --color-ink: #1d1030;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-oswald);
+  --font-script: var(--font-yellowtail);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Neon glow for text and outlined buttons. */
+.neon-text {
+  text-shadow:
+    0 0 0.15em currentColor,
+    0 0 0.6em color-mix(in srgb, currentColor 60%, transparent);
+}
+
+.neon-box {
+  box-shadow:
+    0 0 0.4em color-mix(in srgb, currentColor 70%, transparent),
+    inset 0 0 0.4em color-mix(in srgb, currentColor 40%, transparent);
+}
+
+@keyframes stamp-slam {
+  0% {
+    transform: translate(-50%, -50%) rotate(-12deg) scale(2.2);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, -50%) rotate(-12deg) scale(0.92);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-12deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(40%) rotate(8deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotate(3deg);
+    opacity: 1;
+  }
+}
+
+@keyframes delta-flash {
+  0% {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  20%,
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

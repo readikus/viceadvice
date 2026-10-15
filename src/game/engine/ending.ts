@@ -1,13 +1,16 @@
-import type { FrontPageResponse, PitchBrief, PitchResult, RedFlag } from "../types";
+import type { Ending, PitchBrief, PitchResult, RedFlag } from "../types";
 
-export type Ending = FrontPageResponse["ending"];
+export type { Ending };
 
 /**
- * The ending is decided here, never by the model: finish the night with at least
- * the pot you started with and it's the yacht; lose money and it's the bedsit.
+ * The ending is decided here, never by the model:
+ * - bedsit: you finish with less than you started with;
+ * - yacht: every call was right (sign the good advice, walk or report every scam);
+ * - comfortable: anything in between, where you kept your pot but missed a trick.
  */
-export function decideEnding(finalPot: number, startingPot: number): Ending {
-  return finalPot >= startingPot ? "yacht" : "bedsit";
+export function decideEnding(finalPot: number, startingPot: number, results: PitchResult[]): Ending {
+  if (finalPot < startingPot) return "bedsit";
+  return results.length > 0 && results.every((r) => r.correct) ? "yacht" : "comfortable";
 }
 
 export interface PitchDebrief {

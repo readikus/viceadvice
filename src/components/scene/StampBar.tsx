@@ -1,23 +1,23 @@
-import type { StampBarProps } from "@/game/ui-props";
 import type { Decision } from "@/game/types";
+import type { StampBarProps } from "@/game/ui-props";
 
-const STAMPS: { decision: Decision; className: string; hint: string }[] = [
-  { decision: "SIGN", className: "bg-teal-500 hover:bg-teal-400", hint: "Take the deal" },
-  { decision: "WALK", className: "bg-zinc-500 hover:bg-zinc-400", hint: "No thanks" },
-  { decision: "REPORT", className: "bg-red-600 hover:bg-red-500", hint: "Report a scam" },
+const STAMPS: { decision: Decision; color: string; hint: string }[] = [
+  { decision: "SIGN", color: "text-magenta border-magenta hover:bg-magenta", hint: "Take the deal" },
+  { decision: "WALK", color: "text-orange border-orange hover:bg-orange", hint: "Politely decline" },
+  { decision: "REPORT", color: "text-teal border-teal hover:bg-teal", hint: "Report it as a scam" },
 ];
 
 export function StampBar({ disabled, onStamp, stamped }: StampBarProps) {
   return (
-    <div className="flex gap-3">
-      {STAMPS.map(({ decision, className, hint }) => (
+    <div className="flex gap-[1.5cqw]">
+      {STAMPS.map(({ decision, color, hint }) => (
         <button
           key={decision}
           disabled={disabled}
           onClick={() => onStamp(decision)}
           title={hint}
-          className={`rounded-lg px-5 py-3 font-black tracking-widest text-white disabled:opacity-40 ${className} ${
-            stamped === decision ? "ring-4 ring-amber-400" : ""
+          className={`w-[11cqw] rounded-[0.7cqw] border-[0.2cqw] bg-ink/90 py-[0.8cqw] font-display text-[1.9cqw] font-bold tracking-wider neon-box transition-colors hover:text-ink disabled:pointer-events-none ${color} ${
+            stamped && stamped !== decision ? "opacity-30" : ""
           }`}
         >
           {decision}
