@@ -1,14 +1,54 @@
 # Vice Advice: product decisions
 
-This is the single source of truth for what the game is. If you're changing behaviour, tone or tech, update this file in the same PR. People and AI agents both read it before making changes.
+This is the single source of truth for **what** the game is. [`docs/PLAN.md`](docs/PLAN.md) covers **how** we build it. If you're changing behaviour, tone or tech, update this file in the same PR. People and AI agents both read it before making changes.
 
-Owners: Ian (`readikus`), Tom (`hellocrossmanwild`).
+Exact values (pitches, register, scores) live in code under `src/game/content/`. This file explains them, but the code holds the numbers.
+
+Owners: Ian (`readikus`), Tom (`hellocrossmanwild`). Art: Adam.
 
 ## The pitch
 
 A speech-based web game for PlannerPal that teaches people to spot pension scams. You're the client, 58 with £180,000 in three old pensions. Across the desk sits **Kenny Valentine**, Miami 1986, the most charming financial adviser you'll ever meet. Over one night he makes five pitches. Some are scams and some are genuinely good advice, and he sounds exactly as smooth either way. For each one you stamp SIGN, WALK or REPORT. Judge the advice, not the suit.
 
 The build plan and who owns what is in [`docs/PLAN.md`](docs/PLAN.md).
+
+## How a night plays
+
+1. **Situation card.** You're 58, with three old workplace pensions worth £180,000. You want to stop work at 62, your employer matches pension contributions, and you have about a month's spending in savings.
+2. **Five pitches,** dealt from eight. Kenny opens each one, and you hold SPACE (or the talk button) to answer him. Each pitch has a timer of about two minutes.
+3. **Check him out.** During a pitch you can:
+   - ask Kenny about fees, risks or regulation;
+   - look up his firm number in the fictional FCA register (the register never lies);
+   - use a PlannerPal lifeline, which points at what to check but never says outright "it's a scam";
+   - read the brochure if he slides one across.
+4. **Stamp it:** SIGN, WALK or REPORT. If the timer runs out, it counts as WALK.
+5. **Debrief.** For each pitch: the red flags you caught and missed, why the legit ones held up, and the register checks and lifelines you used.
+6. **Front page.** A headline and a short story about your night. Finish with at least the pot you started with and you end on a yacht; otherwise it's the bedsit.
+
+## Scoring
+
+|            | Legit pitch                         | Scam                               |
+|------------|-------------------------------------|------------------------------------|
+| **SIGN**   | Pot grows (by that pitch's amount)  | Big loss (by that pitch's amount)  |
+| **WALK**   | Pot barely grows                    | No change                          |
+| **REPORT** | Small penalty                       | Bonus                              |
+
+Reporting a legit pitch costs you, so "report everything" doesn't win. Values are in `src/game/content/scoring.ts`. The spec set three of the six cells; the other three are proposals that still need sign-off.
+
+## The deck
+
+| Pitch | Kind | What the register shows |
+|-------|------|-------------------------|
+| Free pension review | Scam | Not listed |
+| Cayman property fund | Scam | Kenny gives no firm number |
+| Take it all tax-free | Scam | Not listed |
+| Kenny's VIP club | Scam | Clone firm: the number is real, but the contact details are wrong |
+| Bring your pots home | Legit | Matches |
+| Free money from the boss | Legit | Matches |
+| Rainy day stash | Legit | Matches |
+| Don't grab the lump sum | Legit | Matches |
+
+Briefs, red flags and "why it holds up" are in `src/game/content/pitches.ts`. `validateContent()` checks the deck against the register.
 
 ## Decisions
 
@@ -41,6 +81,7 @@ The build plan and who owns what is in [`docs/PLAN.md`](docs/PLAN.md).
 
 These stay in place whatever the tone:
 
+- It's educational. Kenny's prompt says the game is made by PlannerPal to teach people to spot pension scams, and that the player knows it's a game.
 - Kenny never asks for real personal or banking details.
 - Kenny never names a real company, person or product. Every firm, number and website in the game is fictional; phone numbers use Ofcom's drama ranges.
 - Kenny never gives real-world instructions for committing fraud, and his crimes are financial only.
@@ -63,4 +104,7 @@ These stay in place whatever the tone:
 - Is "Kenny Valentine" OK to use? It's also the name of a Fast Show character.
 - Sign-off on the three scoring values the spec didn't set (see `src/game/content/scoring.ts`), and on the yacht/bedsit threshold.
 - Does Kenny paint the player's dream retirement (`/api/dream`) as part of a pitch?
-- Which browsers and phones have we actually tested a full call on?
+- Which browsers and phones have we actually tested a full call on? We still need a mic-permission test on the deployed site and a recorded backup run.
+- `docs/PLAN.md` refers to "the spec", but it isn't in the repo. Can we commit it, so everyone, and every AI agent, works from the same source?
+- Has anyone confirmed that none of the fictional firm numbers, names or websites belong to real firms?
+- Is the leaderboard in or out for the offsite?

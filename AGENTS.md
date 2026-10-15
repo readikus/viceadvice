@@ -1,6 +1,8 @@
 # AGENTS.md
 
-**Read [`PRODUCT.md`](PRODUCT.md) first.** It is the single source of truth for what Vice Advice is: the character, tone, guardrails and decisions. If your change alters any of that, update PRODUCT.md in the same commit.
+**Read [`PRODUCT.md`](PRODUCT.md) first.** It is the single source of truth for what Vice Advice is: the gameplay, character, tone, guardrails and decisions. If your change alters any of that, update PRODUCT.md in the same commit.
+
+Then read [`docs/PLAN.md`](docs/PLAN.md) for how it's being built: the streams, who owns which files, and the rules for shared contracts in `src/game/`.
 
 This repo is shared (Ian and Tom both push to `main`). Run `git fetch` before committing, integrate incoming commits first, and never force-push.
 
